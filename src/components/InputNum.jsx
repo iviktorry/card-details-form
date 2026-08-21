@@ -8,7 +8,7 @@ export default function InputNum({ label, ...props }) {
       )}
       <input
         {...props}
-        className="ring rounded-sm ring-zinc-400 py-2 pl-3 w-full"
+        className="ring rounded-sm ring-gray-200 py-2 pl-3 w-full placeholder:text-gray-200 placeholder:text-lg focus:ring-purple-950 border-none outline-none"
       />
     </div>
   );

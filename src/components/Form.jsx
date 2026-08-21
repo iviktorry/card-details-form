@@ -1,4 +1,5 @@
 import InputNum from "./InputNum";
+import Button from "./Button";
 
 export default function Form() {
   return (
@@ -59,6 +60,8 @@ export default function Form() {
           maxLength="3"
         />
       </div>
+
+      <Button />
     </form>
   );
 }
