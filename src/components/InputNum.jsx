@@ -1,12 +1,15 @@
 export default function InputNum({ label, ...props }) {
   return (
-    <>
+    <div className="flex flex-col gap-2 w-full">
       {label && (
-        <label className="uppercase" htmlFor={props.id}>
+        <label className="uppercase text-xs tracking-widest" htmlFor={props.id}>
           {label}
         </label>
       )}
-      <input {...props} className="" />
-    </>
+      <input
+        {...props}
+        className="ring rounded-sm ring-zinc-400 py-2 pl-3 w-full"
+      />
+    </div>
   );
 }
