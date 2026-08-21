@@ -1,66 +1,65 @@
+import InputNum from "./InputNum";
+
 export default function Form() {
   return (
     <form noValidate>
       <div>
-        <label htmlFor="name">cardholder name</label>
-        <input
-          type="text"
-          placeholder="e.g. Jane Appleseed"
+        <InputNum
+          label="cardholder name"
           id="name"
           name="name"
+          type="text"
+          placeholder="e.g. Jane Appleseed"
         />
       </div>
       <div>
-        <label htmlFor="card-number">card number</label>
-        <input
+        <InputNum
+          label="card number"
           type="text"
-          inputMode="numeric"
-          maxLength={19}
-          pattern="[0-9]*"
-          placeholder="eg. 1234 5678 9123 0000"
           id="card-number"
           name="card-number"
+          placeholder="eg. 1234 5678 9123 0000"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          maxLength="19"
         />
       </div>
       <div>
         <fieldset>
           <legend>exp. date (mm/yy)</legend>
           <div>
-            <input
+            <InputNum
               type="text"
-              inputMode="numeric"
-              placeholder="MM"
-              maxLength={2}
-              pattern="[0-9]*"
               id="month"
               name="month"
+              placeholder="MM"
               aria-label="Expiration month"
-              className=""
-            />
-            <input
-              type="text"
               inputMode="numeric"
-              maxLength={2}
               pattern="[0-9]*"
-              placeholder="YY"
+              maxLength="2"
+            />
+            <InputNum
+              type="text"
               id="year"
               name="year"
+              placeholder="YY"
               aria-label="Expiration year"
-              className=""
+              inputMode="numeric"
+              pattern="[0-9]*"
+              maxLength="2"
             />
           </div>
         </fieldset>
         <div>
-          <label htmlFor="cvc">cvc</label>
-          <input
+          <InputNum
+            label="cvc"
             type="text"
-            inputMode="numeric"
-            maxLength={3}
-            pattern="[0-9]*"
-            placeholder="e.g. 123"
             id="cvc"
             name="cvc"
-            className=""
+            placeholder="e.g. 123"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            maxLength="3"
           />
         </div>
       </div>
