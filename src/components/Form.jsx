@@ -1,17 +1,42 @@
 import InputNum from "./InputNum";
 import Button from "./Button";
+import { useState } from "react";
 
 export default function Form() {
+  const [errors, setErrors] = useState();
+
   function handleSubmit(formData) {
     const data = Object.fromEntries(formData);
     const { name, cardNumber, month, year, cvc } = data;
 
-    if (
-      cardNumber.trim() === "" ||
-      month.trim() === "" ||
-      year.trim() === "" ||
-      cvc.trim() === ""
-    ) {
+    const newErrors = {};
+
+    if (!name.trim()) newErrors.name = "Can't be blank!";
+    if (!cardNumber.trim()) newErrors.cardNumber = "Can't be blank!";
+    if (!month.trim()) newErrors.month = "Can't be blank!";
+    if (!year.trim()) newErrors.year = "Can't be blank!";
+    if (!cvc.trim()) newErrors.cvc = "Can't be blank!";
+
+    if (cvc && cvc.length < 3) newErrors.cvc = "Provide full info";
+    if (month && month.length < 3) newErrors.month = "Provide full info";
+    if (year && year.length < 3) newErrors.year = "Provide full info";
+
+    if (cardNumber && cardNumber.length < 19) {
+      newErrors.cardNumber = "Provide full card number";
+    }
+
+    if (typeof cardNumber != "number") {
+      newErrors.cardNumber = "Wrong format, numbers only";
+    }
+    console.log(newErrors);
+
+    setErrors(newErrors);
+
+    const isValid = Object.keys(newErrors).length === 0;
+
+    if (isValid) {
+      console.log("success");
+    } else {
       console.log("error");
     }
   }
