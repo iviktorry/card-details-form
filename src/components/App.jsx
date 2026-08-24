@@ -1,10 +1,12 @@
 import { useState } from "react";
 import Cards from "./Cards";
 import Form from "./Form";
+import FinishScreen from "./FinishScreen";
 
 export default function App() {
   const [errors, setErrors] = useState({});
   const [cardValues, setCardValues] = useState({});
+  const [isFinished, setIsFinished] = useState(false);
 
   function formatCardNumber(value) {
     const rawDigits = value.replace(/\D/g, "");
@@ -53,7 +55,9 @@ export default function App() {
         ...data,
         cardNumber: formatCardNumber(cardNumber),
       };
+
       setCardValues(formattedData);
+      setIsFinished(false);
     } else {
       console.log("error");
     }
@@ -65,7 +69,11 @@ export default function App() {
         <Cards cardValues={cardValues} />
       </aside>
       <main className="px-6 flex justify-center items-center flex-1 text-black my-[18%] lg:justify-end lg:my-0 lg:px-0 lg:pl-20 ">
-        <Form handleSubmit={handleSubmit} errors={errors} />
+        {isFinished ? (
+          <FinishScreen />
+        ) : (
+          <Form handleSubmit={handleSubmit} errors={errors} />
+        )}
       </main>
     </div>
   );
