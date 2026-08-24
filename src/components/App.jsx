@@ -6,6 +6,12 @@ export default function App() {
   const [errors, setErrors] = useState({});
   const [cardValues, setCardValues] = useState({});
 
+  function formatCardNumber(value) {
+    const rawDigits = value.replace(/\D/g, "");
+    const parts = rawDigits.match(/.{1,4}/g);
+    return parts ? parts.join(" ") : "";
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -16,6 +22,8 @@ export default function App() {
     const newErrors = {};
 
     if (!name.trim()) newErrors.name = "Can't be blank!";
+    if (!name.trim().includes(" "))
+      newErrors.name = "Provide name with surname";
     if (!cardNumber.trim()) newErrors.cardNumber = "Can't be blank!";
     if (!month.trim()) newErrors.month = "Can't be blank!";
     if (!year.trim()) newErrors.year = "Can't be blank!";
@@ -23,6 +31,7 @@ export default function App() {
 
     if (cvc && cvc.length < 3) newErrors.cvc = "Provide full info";
     if (month && month.length < 2) newErrors.month = "Provide full info";
+    if (month && month > 12) newErrors.month = "Provide correct month";
     if (year && year.length < 2) newErrors.year = "Provide full info";
 
     if (cardNumber && cardNumber.trim().length < 16) {
@@ -40,7 +49,11 @@ export default function App() {
 
     if (isValid) {
       console.log("success");
-      setCardValues(data);
+      const formattedData = {
+        ...data,
+        cardNumber: formatCardNumber(cardNumber),
+      };
+      setCardValues(formattedData);
     } else {
       console.log("error");
     }

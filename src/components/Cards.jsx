@@ -23,7 +23,7 @@ export default function Cards({ cardValues }) {
             alt="Card logo"
           />
 
-          <p className="absolute top-[54%] left-[7%] right-[4%] whitespace-nowrap tracking-widest overflow-hidden sm:text-2xl lg:text-xl xl:text-2xl">
+          <p className="absolute top-[54%] left-[7%] right-[4%] whitespace-nowrap tracking-widest overflow-hidden sm:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl">
             {cardValues?.cardNumber || "0000 0000 0000 0000"}
           </p>
           <div className="absolute bottom-[12%] left-[7%] right-[7%] flex justify-between">
