@@ -80,7 +80,11 @@ export default function App() {
       </aside>
       <main className="px-6 flex justify-center items-center flex-1 text-black my-[18%] lg:justify-end lg:my-0 lg:px-0 lg:pl-20 ">
         {isFinished ? (
-          <FinishScreen handleCompleteScreen={handleCompleteScreen} resetCardValues={resetCardValues}/>
+          <FinishScreen
+            handleCompleteScreen={handleCompleteScreen}
+            resetCardValues={resetCardValues}
+            isFinished={isFinished}
+          />
         ) : (
           <Form handleSubmit={handleSubmit} errors={errors} />
         )}
