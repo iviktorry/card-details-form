@@ -5,8 +5,11 @@ import { useState } from "react";
 export default function Form() {
   const [errors, setErrors] = useState();
 
-  function handleSubmit(formData) {
+  function handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
     const data = Object.fromEntries(formData);
+
     const { name, cardNumber, month, year, cvc } = data;
 
     const newErrors = {};
@@ -18,17 +21,17 @@ export default function Form() {
     if (!cvc.trim()) newErrors.cvc = "Can't be blank!";
 
     if (cvc && cvc.length < 3) newErrors.cvc = "Provide full info";
-    if (month && month.length < 3) newErrors.month = "Provide full info";
-    if (year && year.length < 3) newErrors.year = "Provide full info";
+    if (month && month.length < 2) newErrors.month = "Provide full info";
+    if (year && year.length < 2) newErrors.year = "Provide full info";
 
-    if (cardNumber && cardNumber.length < 19) {
+    if (cardNumber && cardNumber.trim().length < 16) {
       newErrors.cardNumber = "Provide full card number";
     }
 
-    if (typeof cardNumber != "number") {
+    const cleanedCardNumber = cardNumber.replace(/\s+/g, "");
+    if (/\D/.test(cleanedCardNumber)) {
       newErrors.cardNumber = "Wrong format, numbers only";
     }
-    console.log(newErrors);
 
     setErrors(newErrors);
 
@@ -44,7 +47,7 @@ export default function Form() {
   return (
     <form
       noValidate
-      action={handleSubmit}
+      onSubmit={handleSubmit}
       className="flex flex-col gap-5 mx-auto lg:w-3/7 xl:w-2/5"
     >
       <InputNum
@@ -53,6 +56,7 @@ export default function Form() {
         name="name"
         type="text"
         placeholder="e.g. Jane Appleseed"
+        error={errors?.name}
       />
       <InputNum
         label="card number"
@@ -62,7 +66,8 @@ export default function Form() {
         placeholder="eg. 1234 5678 9123 0000"
         inputMode="numeric"
         pattern="[0-9]*"
-        maxLength="19"
+        maxLength="16"
+        error={errors?.cardNumber}
       />
       <div className="grid grid-cols-2 gap-4 items-start">
         <fieldset className="">
@@ -79,6 +84,7 @@ export default function Form() {
               inputMode="numeric"
               pattern="[0-9]*"
               maxLength="2"
+              error={errors?.month}
             />
             <InputNum
               type="text"
@@ -89,6 +95,7 @@ export default function Form() {
               inputMode="numeric"
               pattern="[0-9]*"
               maxLength="2"
+              error={errors?.year}
             />
           </div>
         </fieldset>
@@ -101,6 +108,7 @@ export default function Form() {
           inputMode="numeric"
           pattern="[0-9]*"
           maxLength="3"
+          error={errors?.cvc}
         />
       </div>
 
