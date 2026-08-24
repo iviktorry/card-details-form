@@ -3,7 +3,7 @@ import Button from "./Button";
 
 export default function Form() {
   return (
-    <form noValidate className="flex flex-col gap-5 mx-auto ">
+    <form noValidate className="flex flex-col gap-5 mx-auto lg:w-3/7 xl:w-2/5">
       <InputNum
         label="cardholder name"
         id="name"
