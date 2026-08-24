@@ -2,8 +2,26 @@ import InputNum from "./InputNum";
 import Button from "./Button";
 
 export default function Form() {
+  function handleSubmit(formData) {
+    const data = Object.fromEntries(formData);
+    const { name, cardNumber, month, year, cvc } = data;
+
+    if (
+      cardNumber.trim() === "" ||
+      month.trim() === "" ||
+      year.trim() === "" ||
+      cvc.trim() === ""
+    ) {
+      console.log("error");
+    }
+  }
+
   return (
-    <form noValidate className="flex flex-col gap-5 mx-auto lg:w-3/7 xl:w-2/5">
+    <form
+      noValidate
+      action={handleSubmit}
+      className="flex flex-col gap-5 mx-auto lg:w-3/7 xl:w-2/5"
+    >
       <InputNum
         label="cardholder name"
         id="name"
@@ -14,8 +32,8 @@ export default function Form() {
       <InputNum
         label="card number"
         type="text"
-        id="card-number"
-        name="card-number"
+        id="cardNumber"
+        name="cardNumber"
         placeholder="eg. 1234 5678 9123 0000"
         inputMode="numeric"
         pattern="[0-9]*"
